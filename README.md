@@ -20,7 +20,7 @@ module.exports = new CommandHandler("hello", async function (event) {
 TypeScript:
 ```ts
 import { NewMessageEvent } from "telegram";
-import { CommandHandler, editMessageToResult } = require("../dist/userbot");
+import { CommandHandler, editMessageToResult } from "../dist/userbot";
 
 export = new CommandHandler("hello", async function (event: NewMessageEvent) {
     await editMessageToResult(event, "Hey!");
