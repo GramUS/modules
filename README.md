@@ -1,5 +1,10 @@
 # Plugin installation
 ```text
+.update [user]/[repo]/[plugin_name](/[branch])
+```
+
+# Installing a plugin from here
+```text
 .update gramjsuserbot/plugins/[plugin_name]
 ```
 
