@@ -1,6 +1,11 @@
 # Plugin installation
+1. Save the plugin:
 ```text
 .update [user]/[repo]/[plugin_name](/[branch])
+```
+2. Reload the plugins:
+```text
+.reload
 ```
 
 # Installing a plugin from here
