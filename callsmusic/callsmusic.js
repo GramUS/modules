@@ -4,6 +4,7 @@ const child_process_1 = require("child_process");
 const gram_tgcalls_1 = require("gram-tgcalls");
 const fs_1 = require("fs");
 const userbot_1 = require("../dist/userbot");
+var proc;
 const getFfmpegArgs = (input) => {
     return ("-y -nostdin " +
         `-i ${input} ` +
@@ -27,9 +28,15 @@ async function stream(event) {
             fs_1.writeFileSync(id, await userbot_1.client.downloadMedia(audioOrVoice, {}));
         }
         try {
+            if (proc) {
+                if (typeof proc !== "undefined") {
+                    proc.kill();
+                }
+            }
+            proc = child_process_1.spawn("ffmpeg", getFfmpegArgs(id));
             await gramtgcalls.stream(
             // @ts-ignore
-            event.chatId, child_process_1.spawn("ffmpeg", getFfmpegArgs(id)).stdout);
+            event.chatId, proc.stdout);
             await userbot_1.editMessageToResult(event, "Streaming...");
         }
         catch (e) {
