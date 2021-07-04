@@ -1,10 +1,19 @@
 # Calls Music
 
-Stream music in group calls.  
+Stream music in group calls.
 
+---
+
+## Installation
+```text
+.update gramjsuserbot/callsmusic
+```
+
+## Notes
 - Requires FFmpeg.
 - Commands should be sent in groups.
 
+## Commands
 |Command|Description|
 |------|-|
 |stream|Stream the replied audio file/voice message.|
