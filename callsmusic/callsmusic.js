@@ -63,6 +63,16 @@ async function resume(event) {
         await userbot_1.editMessageToError(event, "Not in call");
     }
 }
+async function leave(event) {
+    // @ts-ignore
+    const result = gramtgcalls.leave(event.chatId);
+    if (result) {
+        userbot_1.editMessageToResult(event, "Left the call");
+    }
+    else {
+        userbot_1.editMessageToError(event, "Not in call");
+    }
+}
 module.exports = [
     new userbot_1.CommandHandler("stream", stream, {
         requireReply: true,
@@ -70,4 +80,5 @@ module.exports = [
     }),
     new userbot_1.CommandHandler("pause", pause, { requireGroup: true }),
     new userbot_1.CommandHandler("resume", resume, { requireGroup: true }),
+    new userbot_1.CommandHandler("leave", resume, { requireGroup: true }),
 ];
