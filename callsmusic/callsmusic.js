@@ -3,7 +3,7 @@ const crypto_1 = require("crypto");
 const child_process_1 = require("child_process");
 const gram_tgcalls_1 = require("gram-tgcalls");
 const fs_1 = require("fs");
-const userbot_1 = require("../dist/userbot");
+const userbot_1 = require("../userbot");
 const getFfmpegArgs = (input) => {
     return ("-y -nostdin " +
         `-i ${input} ` +
@@ -65,7 +65,7 @@ async function resume(event) {
 }
 async function leave(event) {
     // @ts-ignore
-    const result = gramtgcalls.leave(event.chatId);
+    const result = await gramtgcalls.leave(event.chatId);
     if (result) {
         userbot_1.editMessageToResult(event, "Left the call");
     }
