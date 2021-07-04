@@ -6,7 +6,7 @@ Stream music in group calls.
 
 ## Installation
 ```text
-.update gramjsuserbot/callsmusic
+.update gramjsuserbot/plugins/callsmusic
 ```
 
 ## Notes
