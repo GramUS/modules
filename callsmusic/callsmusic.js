@@ -80,5 +80,5 @@ module.exports = [
     }),
     new userbot_1.CommandHandler("pause", pause, { requireGroup: true }),
     new userbot_1.CommandHandler("resume", resume, { requireGroup: true }),
-    new userbot_1.CommandHandler("leave", resume, { requireGroup: true }),
+    new userbot_1.CommandHandler("leave", leave, { requireGroup: true }),
 ];
