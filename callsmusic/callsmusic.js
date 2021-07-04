@@ -3,7 +3,7 @@ const crypto_1 = require("crypto");
 const child_process_1 = require("child_process");
 const gram_tgcalls_1 = require("gram-tgcalls");
 const fs_1 = require("fs");
-const userbot_1 = require("../userbot");
+const userbot_1 = require("../dist/userbot");
 const getFfmpegArgs = (input) => {
     return ("-y -nostdin " +
         `-i ${input} ` +
