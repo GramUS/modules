@@ -1,14 +1,19 @@
 # Plugin installation
+
 1. Save the plugin:
+
 ```text
 .update [user]/[repo]/[plugin_name](/[branch])
 ```
+
 2. Reload the plugins:
+
 ```text
 .reload
 ```
 
 # Installing a plugin from here
+
 ```text
 .update gramjsuserbot/plugins/[plugin_name]
 ```
@@ -18,22 +23,24 @@
 Add your plugin to `[plugin_name]/[plugin_name].js` and send simply send a PR.
 
 ## Example plugin
-JavaScript:
-```js
-const { CommandHandler, editMessageToResult } = require("../dist/userbot");
 
-module.exports = new CommandHandler("hello", async function (event) {
-    await editMessageToResult(event, "Hey!");
+JavaScript:
+
+```js
+const { CommandHandler } = require("../dist/userbot");
+
+exports.default = new CommandHandler("hello", (client, event) => {
+  event.message.reply({ message: "Hey!" });
 });
 ```
 
 TypeScript:
-```ts
-import { NewMessageEvent } from "telegram";
-import { CommandHandler, editMessageToResult } from "../dist/userbot";
 
-export = new CommandHandler("hello", async function (event: NewMessageEvent) {
-    await editMessageToResult(event, "Hey!");
+```ts
+import { CommandHandler } from "../dist/userbot";
+
+export default new CommandHandler("hello", (client, event) => {
+  event.message.reply({ message: "Hey!" });
 });
 ```
 
