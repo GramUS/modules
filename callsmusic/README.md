@@ -21,4 +21,4 @@ Stream music in group calls.
 |resume|Resume the stream.|
 |pause|Pause the stream.|
 
-_Made by the Calls Music team._
+_Made by the [Calls Music](https://github.com/callsmusic) team._
