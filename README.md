@@ -3,7 +3,7 @@
 1. Save:
 
 ```text
-.update [user]/[repo]/[plugin_name](/[branch])
+.update [user]/[repo]/[name](/[branch])
 ```
 
 2. Reload the handlers:
@@ -15,12 +15,12 @@
 # Installing a module from here
 
 ```text
-.update gramjsuserbot/plugins/[plugin_name]
+.update gramjsuserbot/plugins/[name]
 ```
 
 # Contribution
 
-Add your module to `[plugin_name]/[plugin_name].js` and send simply send a PR.
+Add your module to `[name]/[name].js` and send simply send a PR.
 
 ## Example module
 
