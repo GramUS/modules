@@ -1,10 +1,10 @@
 "use strict";
-const crypto_1 = require("crypto");
+Object.defineProperty(exports, "__esModule", { value: true });
 const child_process_1 = require("child_process");
-const gram_tgcalls_1 = require("gram-tgcalls");
 const fs_1 = require("fs");
+const gram_tgcalls_1 = require("gram-tgcalls");
 const userbot_1 = require("../dist/userbot");
-var proc;
+const gramtgcalls = new gram_tgcalls_1.GramTGCalls(userbot_1.client);
 const getFfmpegArgs = (input) => {
     return ("-y -nostdin " +
         `-i ${input} ` +
@@ -15,77 +15,58 @@ const getFfmpegArgs = (input) => {
         "-ar 65000 " +
         "pipe:1").split(/\s/g);
 };
-const gramtgcalls = new gram_tgcalls_1.GramTGCalls(userbot_1.client);
-async function stream(event) {
-    const repliedMessage = await userbot_1.getRepliedMessage(event);
-    const audioOrVoice = repliedMessage.audio || repliedMessage.voice;
+const chatType = "group";
+const streamHandler = new userbot_1.CommandHandler(async (_, event) => {
+    const repliedMessage = await event.message.getReplyMessage();
+    const audioOrVoice = (repliedMessage === null || repliedMessage === void 0 ? void 0 : repliedMessage.audio) || (repliedMessage === null || repliedMessage === void 0 ? void 0 : repliedMessage.voice);
     if (audioOrVoice) {
-        const id = crypto_1.createHash("md5")
-            .update(audioOrVoice.id.toString())
-            .digest("hex")
-            .toString();
-        if (!fs_1.existsSync(id)) {
-            fs_1.writeFileSync(id, await userbot_1.client.downloadMedia(audioOrVoice, {}));
+        const path = String(audioOrVoice.id);
+        if (!fs_1.existsSync(path)) {
+            fs_1.writeFileSync(path, await userbot_1.client.downloadMedia(audioOrVoice, {}));
         }
-        try {
-            if (proc) {
-                if (typeof proc !== "undefined") {
-                    proc.kill();
-                }
-            }
-            proc = child_process_1.spawn("ffmpeg", getFfmpegArgs(id));
-            await gramtgcalls.stream(
-            // @ts-ignore
-            event.chatId, proc.stdout);
-            await userbot_1.editMessageToResult(event, "Streaming...");
-        }
-        catch (e) {
-            await userbot_1.editMessageToError(event, e instanceof Error ? e.message : e);
-        }
+        await gramtgcalls.stream(
+        // @ts-ignore
+        event.chatId, child_process_1.spawn("ffmpeg", getFfmpegArgs(path)).stdout);
+        await event.message.edit({ text: userbot_1.getResultText("Streaming...") });
     }
-}
-async function pause(event) {
+}, { commands: "stream", chatType });
+const pauseHandler = new userbot_1.CommandHandler((_, event) => {
     // @ts-ignore
-    const result = gramtgcalls.pause(event.chatId);
-    if (result) {
-        await userbot_1.editMessageToResult(event, "Paused");
+    switch (gramtgcalls.pause(event.chatId)) {
+        case true:
+            return event.message.edit({ text: userbot_1.getResultText("Paused") });
+        case false:
+            return event.message.edit({
+                text: userbot_1.getResultText("Not streaming"),
+            });
+        case null:
+            return event.message.edit({
+                text: userbot_1.getResultText("Not in call"),
+            });
     }
-    else if (result == false) {
-        await userbot_1.editMessageToError(event, "Not streaming");
-    }
-    else {
-        await userbot_1.editMessageToError(event, "Not in call");
-    }
-}
-async function resume(event) {
+}, { commands: "pause", chatType });
+const resumeHandler = new userbot_1.CommandHandler((_, event) => {
     // @ts-ignore
-    const result = gramtgcalls.resume(event.chatId);
-    if (result) {
-        await userbot_1.editMessageToResult(event, "Resumed");
+    switch (gramtgcalls.resume(event.chatId)) {
+        case true:
+            return event.message.edit({ text: userbot_1.getResultText("Resumed") });
+        case false:
+            return event.message.edit({
+                text: userbot_1.getResultText("Not paused"),
+            });
+        case null:
+            return event.message.edit({
+                text: userbot_1.getResultText("Not in call"),
+            });
     }
-    else if (result == false) {
-        await userbot_1.editMessageToError(event, "Not paused");
-    }
-    else {
-        await userbot_1.editMessageToError(event, "Not in call");
-    }
-}
-async function leave(event) {
-    // @ts-ignore
-    const result = await gramtgcalls.leave(event.chatId);
-    if (result) {
-        userbot_1.editMessageToResult(event, "Left the call");
-    }
-    else {
-        userbot_1.editMessageToError(event, "Not in call");
-    }
-}
-module.exports = [
-    new userbot_1.CommandHandler("stream", stream, {
-        requireReply: true,
-        requireGroup: true,
-    }),
-    new userbot_1.CommandHandler("pause", pause, { requireGroup: true }),
-    new userbot_1.CommandHandler("resume", resume, { requireGroup: true }),
-    new userbot_1.CommandHandler("leave", leave, { requireGroup: true }),
-];
+}, { commands: "resume", chatType });
+const stopHandler = new userbot_1.CommandHandler(async (_, event) => {
+    await event.message.edit({
+        text: userbot_1.getResultText(
+        // @ts-ignore
+        (await gramtgcalls.stop(event.chatId))
+            ? "Stopped"
+            : "Not in call"),
+    });
+}, { commands: "stop", chatType });
+exports.default = [streamHandler, pauseHandler, resumeHandler, stopHandler];
