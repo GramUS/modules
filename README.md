@@ -15,7 +15,7 @@
 # Installing a module from here
 
 ```text
-.update gramjsuserbot/plugins/[name]
+.update gramjsuserbot/modules/[name]
 ```
 
 # Contribution
