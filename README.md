@@ -1,18 +1,18 @@
-# Plugin installation
+# Module installation
 
-1. Save the plugin:
+1. Save:
 
 ```text
 .update [user]/[repo]/[plugin_name](/[branch])
 ```
 
-2. Reload the plugins:
+2. Reload the handlers:
 
 ```text
 .reload
 ```
 
-# Installing a plugin from here
+# Installing a module from here
 
 ```text
 .update gramjsuserbot/plugins/[plugin_name]
@@ -20,9 +20,9 @@
 
 # Contribution
 
-Add your plugin to `[plugin_name]/[plugin_name].js` and send simply send a PR.
+Add your module to `[plugin_name]/[plugin_name].js` and send simply send a PR.
 
-## Example plugin
+## Example module
 
 JavaScript:
 
