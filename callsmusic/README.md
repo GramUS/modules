@@ -17,7 +17,7 @@ Stream music in group calls.
 |Command|Description|
 |------|-|
 |stream|Stream the replied audio file/voice message.|
-|leave|Leave the call.|
+|stop|Leave the call.|
 |resume|Resume the stream.|
 |pause|Pause the stream.|
 
