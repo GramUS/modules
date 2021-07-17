@@ -1,7 +1,7 @@
 import { spawn } from "child_process";
 import { existsSync, writeFileSync } from "fs";
 import { GramTGCalls } from "gram-tgcalls";
-import { client, CommandHandler, getResultText } from "../userbot";
+import { client, CommandHandler, getResultText } from "../dist/userbot";
 
 const gramtgcalls = new GramTGCalls(client);
 
