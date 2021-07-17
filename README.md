@@ -29,9 +29,12 @@ JavaScript:
 ```js
 const { CommandHandler } = require("../dist/userbot");
 
-exports.default = new CommandHandler("hello", (client, event) => {
-  event.message.reply({ message: "Hey!" });
-});
+exports.default = new CommandHandler(
+  (client, event) => {
+    event.message.reply({ message: "Hey!" });
+  },
+  { commands: "hello" }
+);
 ```
 
 TypeScript:
@@ -39,9 +42,12 @@ TypeScript:
 ```ts
 import { CommandHandler } from "../dist/userbot";
 
-export default new CommandHandler("hello", (client, event) => {
-  event.message.reply({ message: "Hey!" });
-});
+export default new CommandHandler(
+  (client, event) => {
+    event.message.reply({ message: "Hey!" });
+  },
+  { commands: "hello" }
+);
 ```
 
 Note: The TS version might be compiled to JS ignoring import errors in the second line before usage.
