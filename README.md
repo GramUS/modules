@@ -6,7 +6,7 @@ Customizing [GramJS Userbot](https://github.com/gramjsuserbot/gramjsuerbot).
 
 GramJS Userbots can be customized with modules. GramJS Userbot modules are JavaScript files hosted in a GitHub repository, which includes some handlers that will be added to GramJS Userbot after they are installed. A GramJS Userbot can be written by you or someone else, in either JavaScript or TypeScript. But if one writes a module in TypeScript, they should build it to JavaScript before it works and gets published.
 
-The goal of this repository is to collect useful modules for you and by you. Anyone can add their modules to here by sending a PR.
+The goal of this repository is to collect useful modules for you (and by you). Anyone can add their modules to here by sending a PR.
 
 ## Installing modules
 
